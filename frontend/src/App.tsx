@@ -1,8 +1,11 @@
 import { useState } from "react";
 import { Input } from "./components/ui/input";
+import { animate, motion } from "motion/react";
+import { Button } from "./components/ui/button";
 
 function App() {
   const [name, setName] = useState("");
+  const [showButton, setShowButton] = useState(false);
 
   return (
     <div
@@ -19,9 +22,19 @@ function App() {
           if (e.key === "Enter") {
             setName(e.currentTarget.value);
             e.currentTarget.value = "";
+            animate(e.currentTarget, { scale: 0 }, { duration: 0.5 });
+            setShowButton(true);
           }
         }}
       />
+      <Button
+        size={"lg"}
+        className={`transition-opacity duration-300 ${showButton ? "opacity-100" : "opacity-0"
+          }`}
+        onClick={() => { alert(`Hello, ${name}!`); }}
+      >
+        Greet
+      </Button>
     </div>
   );
 }
