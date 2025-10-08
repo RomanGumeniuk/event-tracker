@@ -1,11 +1,21 @@
 import { useState } from "react";
 import { Input } from "./components/ui/input";
-import { animate, motion } from "motion/react";
+import { animate } from "motion/react";
 import { Button } from "./components/ui/button";
 
 function App() {
   const [name, setName] = useState("");
   const [showButton, setShowButton] = useState(false);
+
+  function CreateUser(username: string) {
+    fetch('http://localhost:5000/api/users', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ username }),
+    });
+  }
 
   return (
     <div
@@ -31,9 +41,9 @@ function App() {
         size={"lg"}
         className={`transition-opacity duration-300 ${showButton ? "opacity-100" : "opacity-0"
           }`}
-        onClick={() => { alert(`Hello, ${name}!`); }}
+        onClick={() => { CreateUser(name); }}
       >
-        Greet
+        Submit your name
       </Button>
     </div>
   );
