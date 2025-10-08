@@ -4,8 +4,8 @@ import { animate } from "motion/react";
 import { Button } from "./components/ui/button";
 
 function App() {
-  const [name, setName] = useState("");
-  const [showButton, setShowButton] = useState(false);
+  const [name, setName] = useState<string>("");
+  const [showButton, setShowButton] = useState<boolean>(false);
 
   function CreateUser(username: string) {
     fetch('http://localhost:5000/api/users', {
