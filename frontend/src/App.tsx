@@ -6,14 +6,15 @@ import { Button } from "./components/ui/button";
 function App() {
   const [name, setName] = useState<string>("");
   const [showButton, setShowButton] = useState<boolean>(false);
+  const [setMessage, message] = useState<string>("")
 
-  function CreateUser(username: string) {
+  function CreateUser(username: string, message: string) {
     fetch('http://localhost:5000/api/users', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ username }),
+      body: JSON.stringify({ username,message }),
     });
   }
 
@@ -28,6 +29,7 @@ function App() {
       <Input
         className="w-1/2 h-1/12 border-2 border-gray-300 rounded-lg border-radius-md p-2 text-center text-lg"
         placeholder="Enter your name"
+        required
         onKeyDown={(e) => {
           if (e.key === "Enter") {
             setName(e.currentTarget.value);
@@ -37,11 +39,16 @@ function App() {
           }
         }}
       />
+      <Input
+      className="w-1/2 h-1/12 border-2 border-gray-300 rounded-lg border-radius-md p-2 text-center text-lg"
+      placeholder="Say your message"
+      required
+      />
       <Button
         size={"lg"}
         className={`transition-opacity duration-300 ${showButton ? "opacity-100" : "opacity-0"
           }`}
-        onClick={() => { CreateUser(name); }}
+        onClick={() => { CreateUser(name,message); }}
       >
         Submit your name
       </Button>
